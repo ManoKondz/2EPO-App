@@ -10,6 +10,7 @@ struct TrilhaView: View {
     @State private var showingPopup = false
     @State private var selectedLesson = ""
     
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -31,7 +32,6 @@ struct TrilhaView: View {
                     }
                     .padding()
                     
-                    
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 20) {
                             ForEach(0..<6) { index in
@@ -41,7 +41,7 @@ struct TrilhaView: View {
                                             HStack {
                                                 CircleIconView(index: index)
                                                     .onTapGesture {
-                                                        self.selectedLesson = "Lição \(index + 1): A batalha pela verdadeira palavra."
+                                                        self.selectedLesson = getLessonTitle(index: index)
                                                         self.showingPopup.toggle()
                                                     }
                                                 Spacer() // Empurra a imagem para a esquerda
@@ -59,7 +59,7 @@ struct TrilhaView: View {
                                                 Spacer() // Empurra a imagem para a direita
                                                 CircleIconView(index: index)
                                                     .onTapGesture {
-                                                        self.selectedLesson = "Lição \(index + 1): A batalha pela verdadeira palavra."
+                                                        self.selectedLesson = getLessonTitle(index: index)
                                                         self.showingPopup.toggle()
                                                     }
                                             }
@@ -69,7 +69,6 @@ struct TrilhaView: View {
                                                     .frame(width: 250, height: 20)
                                                     .rotationEffect(.degrees(index % 2 == 0 ? 35 : -35))
                                                     .zIndex(-1)
-                                                
                                             }
                                         }
                                     }
@@ -77,12 +76,12 @@ struct TrilhaView: View {
                             }
                         }
                         .padding()
-                        .background(.red)
+                        .background(Color.background)
                     }
                     .frame(maxHeight: .infinity)
                 }
                 
-                .background(.blue)
+                .background(Color.menu)
                 if showingPopup {
                     LessonPopupView(lessonName: selectedLesson, isShowingPopup: $showingPopup)
                 }
@@ -91,6 +90,25 @@ struct TrilhaView: View {
         .tabItem {
             Image(systemName: "list.dash")
             Text("Trilha")
+        }
+    }
+    
+    func getLessonTitle(index: Int) -> String {
+        switch index {
+        case 0:
+            return "Lição 1: A batalha pela verdadeira palavra."
+        case 1:
+            return "Lição 2: Através de Ditados Populares."
+        case 2:
+            return "Lição 3: O mistério do Ônibus."
+        case 3:
+            return "Lição 4: Lição Extra/Complementar."
+        case 4:
+            return "Lição 5: Lição Extra/Complementar."
+        case 5:
+            return "Lição 6: Lição Extra/Complementar."
+        default:
+            return "Lição \(index + 1)"
         }
     }
 }
@@ -118,7 +136,7 @@ struct CircleIconView: View {
             return "airplane"
         case 2:
             return "bus.fill"
-            // Adicione mais casos conforme necessário
+            // Adicionar mais cases conforme necessário
         default:
             return "circle.fill"
         }
@@ -131,9 +149,25 @@ struct LessonPopupView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Button(action: {
+                    self.isShowingPopup = false
+                }) {
+                    Image(systemName: "x.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.green)
+                }
+                .padding(.leading, 20)
+                .padding(.top, 20)
+                Spacer()
+            }
+            
             Text(lessonName)
                 .font(.title)
-                .padding()
+                .padding(.top, 20) // Ajustei aqui para alinhar o texto um pouco mais acima
+                .padding(.horizontal, 20)
             
             Button(action: {
                 // Adicionar a ação para iniciar a lição
@@ -148,14 +182,16 @@ struct LessonPopupView: View {
             .padding()
             .background(Color.green)
             .clipShape(Circle())
+            
+            Spacer()
         }
         .frame(width: 300, height: 300)
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 20)
+        .padding(.top, 20) // Outro ajuste para mover todo o conteúdo da VStack um pouco mais para cima
     }
 }
-
 
 #Preview {
     TabView {

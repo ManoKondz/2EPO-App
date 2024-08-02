@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		228D0F9D2C543AFA00C24FFF /* Lição1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D0F9C2C543AFA00C24FFF /* Lição1.swift */; };
 		22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7D2BFD150200576A26 /* _EPOApp.swift */; };
 		22F4CA802BFD150200576A26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7F2BFD150200576A26 /* ContentView.swift */; };
 		22F4CA822BFD150300576A26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F4CA812BFD150300576A26 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		228D0F9C2C543AFA00C24FFF /* Lição1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lição1.swift"; sourceTree = "<group>"; };
 		22F4CA7A2BFD150200576A26 /* 2EPO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2EPO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F4CA7D2BFD150200576A26 /* _EPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EPOApp.swift; sourceTree = "<group>"; };
 		22F4CA7F2BFD150200576A26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				22F4CA7F2BFD150200576A26 /* ContentView.swift */,
 				22F4CA8B2BFD16CD00576A26 /* FonologiaView.swift */,
 				22F4CA8F2BFD1A1600576A26 /* TrilhaView.swift */,
+				228D0F9C2C543AFA00C24FFF /* Lição1.swift */,
 				22F4CA812BFD150300576A26 /* Assets.xcassets */,
 				22F4CA832BFD150300576A26 /* Preview Content */,
 			);
@@ -145,6 +148,7 @@
 			files = (
 				22F4CA802BFD150200576A26 /* ContentView.swift in Sources */,
 				22F4CA8C2BFD16CD00576A26 /* FonologiaView.swift in Sources */,
+				228D0F9D2C543AFA00C24FFF /* Lição1.swift in Sources */,
 				22F4CA902BFD1A1600576A26 /* TrilhaView.swift in Sources */,
 				22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */,
 			);
