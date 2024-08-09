@@ -7,11 +7,24 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
+    
     var body: some View {
         TabView {
-            TrilhaView()
-            FonologiaView()
+            Group {
+                TrilhaView()
+                    .tabItem {
+                        Label("Trilha", systemImage: "house")
+                    }
+                FonologiaView()
+                    .tabItem {
+                        Label("Fonologia", systemImage: "abc")
+                    }
+            }
+            .toolbarBackground(.visible, for: .tabBar)
+            .toolbarBackground(Color.menu, for: .tabBar)
         }
     }
 }
