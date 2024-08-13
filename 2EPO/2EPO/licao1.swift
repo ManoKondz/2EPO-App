@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Lic_a_o1: View {
+struct Licao1: View {
     @State private var showingPopup = false
     @State private var selectedOption = ""
     
@@ -38,14 +38,13 @@ struct Lic_a_o1: View {
                     Text("Dois grupos estão discutindo qual a forma correta de escrever a palavra \"mão\" no plural")
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
-                        .padding()
                     
                     Image("boxers")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 200)
                         .padding()
-                        .background(Color.botões)
+                        .background(Color.botões)
                         .cornerRadius(30)
                         .foregroundColor(.black)
                     
@@ -72,7 +71,7 @@ struct Lic_a_o1: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.botões)
+                            .background(Color.botões)
                             .cornerRadius(20)
                             .foregroundColor(.black)
                             .shadow(radius: 5)
@@ -98,7 +97,7 @@ struct Lic_a_o1: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.botões)
+                            .background(Color.botões)
                             .cornerRadius(20)
                             .foregroundColor(.black)
                             .shadow(radius: 5)
@@ -113,7 +112,7 @@ struct Lic_a_o1: View {
                         Image(systemName: "speaker.3.fill")
                             .frame(width: 100)
                             .padding()
-                            .background(Color.botãof)
+                            .background(Color.botãof)
                             .cornerRadius(10)
                             .foregroundColor(.white)
                     }
@@ -126,5 +125,5 @@ struct Lic_a_o1: View {
 }
 
 #Preview {
-    Lic_a_o1()
+    Licao1()
 }
