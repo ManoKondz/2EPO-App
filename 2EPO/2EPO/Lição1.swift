@@ -22,6 +22,8 @@ struct Lic_a_o1: View {
                     }
                     .padding()
                     
+                    //Codigo da barra de progresso(ainda a adicionar a função de aumentar com a questão)
+                    
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.barcolor)
@@ -59,14 +61,14 @@ struct Lic_a_o1: View {
                             // Ação do botão "Mões"
                         }) {
                             VStack {
-                                Text("Mões")
-                                    .font(.headline)
-                                    .padding(.bottom, 10)
-                                
                                 Image(systemName: "person.3.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 30, height: 90)
+                                    .frame(width: 60, height: 110)
+                                
+                                Text("Mões")
+                                    .font(.headline)
+                                    .padding(.bottom, 10)
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -81,19 +83,23 @@ struct Lic_a_o1: View {
                             // Ação do botão "Mãos"
                         }) {
                             VStack {
-                                Text("Mãos")
-                                    .font(.headline)
-                                    .padding(.bottom, 10)
+                                
                                 
                                 Image(systemName: "person.3.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 60, height: 110)
+                                
+                                Text("Mãos")
+                                    .font(.headline)
+                                    .padding(.bottom, 10)
+                                
+                                
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.botões)
-                            .cornerRadius(10)
+                            .cornerRadius(20)
                             .foregroundColor(.black)
                             .shadow(radius: 5)
                         }
