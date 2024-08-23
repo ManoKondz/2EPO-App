@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221085B12C78DF3200FD7081 /* L1Desafio3.swift */; };
 		225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C9A042C6FB9580091AE10 /* L1Desafio2.swift */; };
 		228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */; };
-		22EA85B62C750088008764D9 /* L1Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA85B52C750088008764D9 /* L1Desafio3.swift */; };
+		22EA85B62C750088008764D9 /* L1Desafio5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA85B52C750088008764D9 /* L1Desafio5.swift */; };
 		22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7D2BFD150200576A26 /* _EPOApp.swift */; };
 		22F4CA802BFD150200576A26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7F2BFD150200576A26 /* ContentView.swift */; };
 		22F4CA822BFD150300576A26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F4CA812BFD150300576A26 /* Assets.xcassets */; };
@@ -19,9 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		221085B12C78DF3200FD7081 /* L1Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio3.swift; sourceTree = "<group>"; };
 		225C9A042C6FB9580091AE10 /* L1Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio2.swift; sourceTree = "<group>"; };
 		228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio1.swift; sourceTree = "<group>"; };
-		22EA85B52C750088008764D9 /* L1Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio3.swift; sourceTree = "<group>"; };
+		22EA85B52C750088008764D9 /* L1Desafio5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio5.swift; sourceTree = "<group>"; };
 		22F4CA7A2BFD150200576A26 /* 2EPO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2EPO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F4CA7D2BFD150200576A26 /* _EPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EPOApp.swift; sourceTree = "<group>"; };
 		22F4CA7F2BFD150200576A26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,7 +68,8 @@
 				22F4CA8B2BFD16CD00576A26 /* FonologiaView.swift */,
 				22F4CA8F2BFD1A1600576A26 /* TrilhaView.swift */,
 				228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */,
-				22EA85B52C750088008764D9 /* L1Desafio3.swift */,
+				22EA85B52C750088008764D9 /* L1Desafio5.swift */,
+				221085B12C78DF3200FD7081 /* L1Desafio3.swift */,
 				225C9A042C6FB9580091AE10 /* L1Desafio2.swift */,
 				22F4CA812BFD150300576A26 /* Assets.xcassets */,
 				22F4CA832BFD150300576A26 /* Preview Content */,
@@ -157,7 +160,8 @@
 				228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */,
 				225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */,
 				22F4CA902BFD1A1600576A26 /* TrilhaView.swift in Sources */,
-				22EA85B62C750088008764D9 /* L1Desafio3.swift in Sources */,
+				22EA85B62C750088008764D9 /* L1Desafio5.swift in Sources */,
+				221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */,
 				22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
