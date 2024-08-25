@@ -118,7 +118,7 @@ struct CircleIconView: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.botões)
+                .fill(Color.botões)
                 .frame(width: 100, height: 100)
             Image(systemName: getSystemImageName(index))
                 .resizable()
