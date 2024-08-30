@@ -35,3 +35,4 @@ O objetivo deste projeto é fornecer uma ferramenta intuitiva e acessível que a
   
 
 ## 📃Licença do Projeto
+[Nossa Licença]()
