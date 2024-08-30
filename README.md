@@ -34,5 +34,4 @@ O objetivo deste projeto é fornecer uma ferramenta intuitiva e acessível que a
   - Abrir Xcode e selecionar a opção **Abrir projeto existente**.
   
 
-## 📃Licença do Projeto
-[Nossa Licença](LICENSE)
+[📃Nossa Licença](LICENSE)
