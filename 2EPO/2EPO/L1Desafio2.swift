@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct Licao2: View {
+    @State private var words: [String] = ["Mões", "Universo", "Classes", "Pessoas", "Escolha", "Mãos", "Mundo", "Planeta", "Vidas"]
     @State private var showingPopup = false
     @State private var selectedOption = ""
     
+
     var body: some View {
+        
         NavigationStack {
             ZStack {
                 Color.menu // Cor de fundo aplicada a toda a tela
@@ -12,12 +15,6 @@ struct Licao2: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Button(action: {
-                            // Ação do botão Voltar
-                        }) {
-                            Text("voltar")
-                                .foregroundColor(.white)
-                        }
                         Spacer()
                     }
                     .padding()
@@ -26,11 +23,11 @@ struct Licao2: View {
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.barcolor)
-                            .frame(height: 25) // Define altura da barra de fundo
+                            .frame(width: 360,height: 25) // Define altura da barra de fundo
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progress)
-                            .frame(width: 99, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 144, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
@@ -58,7 +55,7 @@ struct Licao2: View {
                                 .fill(Color.botões)
                             VStack{
                                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 10), count: 3), spacing: 10) {
-                                    ForEach(["Mões", "Universo", "Classes", "Pessoas", "Escolha", "Mãos", "Mundo", "Planeta", "Vidas"], id: \.self) { word in
+                                    ForEach( words ,id: \.self) { word in
                                         Button(action: {
                                             // Ação do botão
                                         }) {
@@ -67,6 +64,7 @@ struct Licao2: View {
                                                 .background(Color.botãol1D2)
                                                 .cornerRadius(10)
                                                 .foregroundColor(.white)
+                                                .draggable(word)
                                         }
                                     }
                                 }
@@ -94,23 +92,26 @@ struct Licao2: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            // Ação para o segundo botão
-                        }) {
-                            Image(systemName: "hand.thumbsup.fill")
+                        NavigationLink {
+                            Licao3()
+                        } label: {
                             
-                                .frame(width: 100)
-                                .padding()
-                                .background(Color.botãof)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
+                            VStack{
+                                Image(systemName: "hand.thumbsup.fill")
+                                                
+                                    .frame(width: 100)
+                                    .padding()
+                                    .background(Color.botãof)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }}
                     }
                     .padding(.horizontal, 55)
                 }
                 .padding(.bottom)
             }
         }
+        
     }
 }
 

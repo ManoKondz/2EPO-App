@@ -26,16 +26,7 @@ struct Licao3: View {
                     .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            // Ação do botão Voltar
-                        }) {
-                            Text("voltar")
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    .padding()
+                    
                     
                     // Barra de progresso
                     ZStack(alignment: .leading) {
@@ -45,7 +36,7 @@ struct Licao3: View {
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progress)
-                            .frame(width: 150, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 216, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
@@ -71,9 +62,7 @@ struct Licao3: View {
                         // Caixa verde das respostas
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
-                                Button(action: {
-                                    selectedOption = textForIndex(index)
-                                }) {
+                                NavigationLink(destination: Licao4()) {
                                     Text(textForIndex(index))
                                         .font(.system(size: 15))
                                         .foregroundColor(.black)
@@ -82,7 +71,6 @@ struct Licao3: View {
                                         .background(Color.botões)
                                         .cornerRadius(10)
                                 }
-                                
                                 if index < 3 {
                                     Divider()
                                         .background(Color("botões"))
@@ -105,7 +93,7 @@ struct Licao3: View {
                             // Ação do botão de som
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
-                                .frame(width: 120, height: 50)
+                                .frame(width: 100)
                                 .padding()
                                 .background(Color.botãof)
                                 .cornerRadius(10)
