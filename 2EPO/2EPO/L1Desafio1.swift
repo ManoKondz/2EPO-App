@@ -11,17 +11,6 @@ struct Licao1: View {
                     .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            // Ação do botão Voltar
-                        }) {
-                            Text("Voltar")
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    
                     //Codigo da barra de progresso(ainda a adicionar a função de aumentar com a questão)
                     
                     ZStack(alignment: .leading) {
@@ -31,7 +20,7 @@ struct Licao1: View {
 
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progress)
-                            .frame(width: 66, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 72, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
@@ -56,15 +45,15 @@ struct Licao1: View {
                     
                     HStack(spacing: 20) {
                         // Botão "Mões"
-                        Button(action: {
-                            // Ação do botão "Mões"
-                        }) {
+                        NavigationLink {
+                            Licao2()
+                        } label: {
+                            
                             VStack {
                                 Image(systemName: "person.3.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 60, height: 110)
-                                
                                 Text("Mões")
                                     .font(.headline)
                                     .padding(.bottom, 10)
@@ -75,12 +64,13 @@ struct Licao1: View {
                             .cornerRadius(20)
                             .foregroundColor(.black)
                             .shadow(radius: 5)
+                            
                         }
                         
                         // Botão "Mãos"
-                        Button(action: {
-                            // Ação do botão "Mãos"
-                        }) {
+                        NavigationLink {
+                            Licao2()
+                        } label: {
                             VStack {
                                 
                                 

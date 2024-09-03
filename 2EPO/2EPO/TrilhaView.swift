@@ -169,10 +169,13 @@ struct LessonPopupView: View {
                 .padding(.top, 20) // Ajustei aqui para alinhar o texto um pouco mais acima
                 .padding(.horizontal, 20)
             
-            Button(action: {
-                // Adicionar a ação para iniciar a lição
-                self.isShowingPopup = false
-            }) {
+            
+        
+
+            NavigationLink{
+                Licao1()
+            } label: {
+            
                 Image(systemName: "play.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)

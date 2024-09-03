@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct Licao5: View {
+struct Licao4: View {
     @State private var showingPopup = false
     @State private var selectedOption = ""
     
     func textForIndex(_ index: Int) -> String {
         switch index {
         case 0:
-            return "Com Mões, Tudo Fica Melhor"
+            return "Para seguir a norma culta padrão do português"
         case 1:
-            return "Com Mãos, O Mundo Se Conecta"
+            return "É importante para o equilíbrio do mundo"
         case 2:
-            return "Com Moisés, Tudo Fica Melhor"
+            return "Agradar uma parcela da sociedade"
         case 3:
-            return "Com Mãoses, O Mundo Se Conecta"
+            return "Você ganha superpoderes linguísticos "
         default:
             return ""
         }
@@ -27,7 +27,7 @@ struct Licao5: View {
                 
                 VStack {
                     HStack {
-                      Spacer()
+                        Spacer()
                     }
                     .padding()
                     
@@ -39,11 +39,11 @@ struct Licao5: View {
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progress)
-                            .frame(width: 360, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 288, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
-                    Text("Após concluir uma série de cartazes para participar do movimento sobre a língua inglesa, o grupo das mãos precisa escolher um `slogan`.")
+                    Text("Auxilie os participantes da manifestação a elucidar as concepções da criança.")
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
@@ -58,20 +58,18 @@ struct Licao5: View {
                             .frame(width: 300, height: 200)
                             
                         
-                        Text("Selecione o `slogan` mais apropriado.")
+                        Text("Escolha a alternativa correta!")
                             .foregroundColor(.white)
                             .padding(.top, 10)
                         
                         // Caixa verde das respostas
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
-                                Button(action: {
-                                    selectedOption = textForIndex(index)
-                                }) {
+                                NavigationLink(destination: Licao5()) {
                                     Text(textForIndex(index))
-                                        .font(.headline)
+                                        .font(.system(size: 15))
                                         .foregroundColor(.black)
-                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 10)
                                         .padding()
                                         .background(Color.botões)
                                         .cornerRadius(10)
@@ -111,7 +109,8 @@ struct Licao5: View {
             }
         }
     }}
+    
 
 #Preview {
-    Licao5()
+    Licao4()
 }
