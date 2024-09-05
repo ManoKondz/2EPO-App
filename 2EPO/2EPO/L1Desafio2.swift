@@ -3,15 +3,16 @@ import SwiftUI
 struct Licao2: View {
     @State private var words: [String] = ["Mões", "Universo", "Classes", "Pessoas", "Escolha", "Mãos", "Mundo", "Planeta", "Vidas"]
     @State private var showingPopup = false
-    @State private var selectedOption = ""
+    @State private var draggedWord: String? = nil
+    @State private var resposta1 = ""
+    @State private var resposta2 = ""
+    @State private var resposta3 = ""
     
-
     var body: some View {
-        
         NavigationStack {
             ZStack {
-                Color.menu // Cor de fundo aplicada a toda a tela
-                    .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
+                Color.menu
+                    .edgesIgnoringSafeArea(.all)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -19,15 +20,14 @@ struct Licao2: View {
                     }
                     .padding()
                     
-                    // Código da barra de progresso (ainda a adicionar a função de aumentar com a questão)
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.barcolor)
-                            .frame(width: 360,height: 25) // Define altura da barra de fundo
+                            .frame(width: 360, height: 25)
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progress)
-                            .frame(width: 144, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 144, height: 25)
                     }
                     .padding(.horizontal)
                     
@@ -50,39 +50,37 @@ struct Licao2: View {
                             .foregroundColor(.white)
                             .font(.headline)
                             .padding(.top)
-                        ZStack{
+                        
+                        ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.botões)
-                            VStack{
+                            VStack {
                                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 10), count: 3), spacing: 10) {
-                                    ForEach( words ,id: \.self) { word in
-                                        Button(action: {
-                                            // Ação do botão
-                                        }) {
-                                            Text(word)
-                                                .frame(maxWidth: .infinity, minHeight: 50)
-                                                .background(Color.botãol1D2)
-                                                .cornerRadius(10)
-                                                .foregroundColor(.white)
-                                                .draggable(word)
-                                        }
+                                    ForEach(words, id: \.self) { word in
+                                        Text(word)
+                                            .frame(maxWidth: .infinity, minHeight: 50)
+                                            .background(Color.botãol1D2)
+                                            .cornerRadius(10)
+                                            .foregroundColor(.white)
+                                            .onDrag {
+                                                self.draggedWord = word
+                                                return NSItemProvider(object: word as NSString)
+                                            }
                                     }
                                 }
-                                .padding()
                             }
+                            .padding()
                         }
                     }
                     .padding(.horizontal)
                     
                     Spacer()
                     
-                    // Botões de som e aprovação
                     HStack {
                         Button(action: {
-                            // Ação para o primeiro botão
+                            // Ação para o botão de som
                         }) {
                             Image(systemName: "speaker.3.fill")
-                            
                                 .frame(width: 100)
                                 .padding()
                                 .background(Color.botãof)
@@ -95,57 +93,81 @@ struct Licao2: View {
                         NavigationLink {
                             Licao3()
                         } label: {
-                            
-                            VStack{
+                            VStack {
                                 Image(systemName: "hand.thumbsup.fill")
-                                                
                                     .frame(width: 100)
                                     .padding()
                                     .background(Color.botãof)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
-                            }}
+                            }
+                        }
                     }
                     .padding(.horizontal, 55)
                 }
                 .padding(.bottom)
             }
         }
-        
     }
-}
 
-@ViewBuilder
-func fraseCompletaView() -> some View {
-    VStack(alignment: .leading) {
-        fraseCompletarView(textoBase: "Lute pelas", espaco: "________")
-        fraseCompletarView(textoBase: "O poder da", espaco: "________", textoPosEspaco: "muda tudo")
-        fraseCompletarView(textoBase: "O seu voto mudará o", espaco: "________")
+    @ViewBuilder
+    func fraseCompletaView() -> some View {
+        VStack(alignment: .leading) {
+            fraseCompletarView(textoBase: "Lute pelas", espaco: $resposta1)
+            fraseCompletarView(textoBase: "O poder da", espaco: $resposta2, textoPosEspaco: "muda tudo")
+            fraseCompletarView(textoBase: "O seu voto mudará o", espaco: $resposta3)
+        }
+        .padding()
     }
-    .padding()
-}
 
-func fraseCompletarView(textoBase: String, espaco: String, textoPosEspaco: String = "") -> some View {
-    HStack {
-        Text(textoBase)
-            .font(.title3)
-            .foregroundColor(.black)
-        
-        Text(espaco)
-            .font(.title3)
-            .fontWeight(.semibold)
-            .foregroundColor(.gray)
-        
-        if !textoPosEspaco.isEmpty {
-            Text(textoPosEspaco)
-                .font(.title2)
+    func fraseCompletarView(textoBase: String, espaco: Binding<String>, textoPosEspaco: String = "") -> some View {
+        HStack {
+            Text(textoBase)
+                .font(.title3)
                 .foregroundColor(.black)
+            
+            Text(espaco.wrappedValue.isEmpty ? "________" : espaco.wrappedValue)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundColor(espaco.wrappedValue.isEmpty ? .gray : .black)
+                .onDrop(of: [.text], isTargeted: nil) { providers in
+                    if let provider = providers.first {
+                        provider.loadObject(ofClass: String.self) { object, _ in
+                            if let word = object as? String {
+                                DispatchQueue.main.async {
+                                    if !espaco.wrappedValue.isEmpty {
+                                        // Devolve a palavra anterior para a lista
+                                        words.append(espaco.wrappedValue)
+                                    }
+                                    espaco.wrappedValue = word
+                                    // Remove a palavra usada da lista
+                                    if let index = words.firstIndex(of: word) {
+                                        words.remove(at: index)
+                                    }
+                                }
+                            }
+                        }
+                        return true
+                    }
+                    return false
+                }
+                .onTapGesture {
+                    // Remover palavra do espaço quando clicado e devolvê-la à lista
+                    if !espaco.wrappedValue.isEmpty {
+                        words.append(espaco.wrappedValue)
+                        espaco.wrappedValue = ""
+                    }
+                }
+            
+            if !textoPosEspaco.isEmpty {
+                Text(textoPosEspaco)
+                    .font(.title2)
+                    .foregroundColor(.black)
+            }
         }
     }
 }
 
-
 #Preview {
     Licao2()
 }
-
