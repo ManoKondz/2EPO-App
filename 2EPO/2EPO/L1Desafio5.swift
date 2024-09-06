@@ -3,6 +3,9 @@ import SwiftUI
 struct Licao5: View {
     @State private var showingPopup = false
     @State private var selectedOption = ""
+    @State private var navigateToNextScreen = false
+    @State private var isCorrect = false
+    @State private var showingResult = false
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -27,7 +30,7 @@ struct Licao5: View {
                 
                 VStack {
                     HStack {
-                      Spacer()
+                        Spacer()
                     }
                     .padding()
                     
@@ -38,7 +41,7 @@ struct Licao5: View {
                             .frame(width: 360,height: 25) // Define altura da barra de fundo
                         
                         RoundedRectangle(cornerRadius: 60)
-                            .fill(Color.progress)
+                            .fill(Color.progressBar)
                             .frame(width: 360, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
@@ -56,7 +59,7 @@ struct Licao5: View {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
                             .frame(width: 300, height: 200)
-                            
+                        
                         
                         Text("Selecione o `slogan` mais apropriado.")
                             .foregroundColor(.white)
@@ -66,6 +69,8 @@ struct Licao5: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
+                                    isCorrect = true
+                                    showingResult = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
@@ -73,7 +78,7 @@ struct Licao5: View {
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity)
                                         .padding()
-                                        .background(Color.botões)
+                                        .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }
                                 
@@ -89,7 +94,7 @@ struct Licao5: View {
                                 .stroke(Color.blue, lineWidth: 2)
                                 .background(
                                     RoundedRectangle(cornerRadius: 20)
-                                        .fill(Color.botões)
+                                        .fill(Color.botaoOpcao)
                                 )
                         )
                         .padding(.bottom, 20)
@@ -101,17 +106,80 @@ struct Licao5: View {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
                                 .padding()
-                                .background(Color.botãof)
+                                .background(Color.botaoPadrao)
                                 .cornerRadius(10)
                                 .foregroundColor(.white)
                         }
                     }
                     .padding()
+                    .overlay(
+                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
+                    )
+                    
+                    NavigationLink(value: navigateToNextScreen) {
+                        EmptyView()
+                    }
+                    .navigationDestination(isPresented: $navigateToNextScreen) {
+                        Licao5()
+                    }
+                    
                 }
             }
         }
-    }}
-
+    }
+}
+struct CustomPopupView4: View {
+    var isCorrect: Bool
+    @Binding var showing: Bool
+    @Binding var navigateToNextScreen: Bool
+    
+    var body: some View {
+        if showing {
+            VStack {
+                HStack {
+                    Image(systemName: isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white)
+                    
+                    VStack(alignment: .leading) {
+                        Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "speaker.wave.3.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.white)
+                }
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(15)
+                .padding()
+                
+                Button(action: {
+                    showing = false
+                    navigateToNextScreen = true
+                }) {
+                    Image(systemName: "forward.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.black)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.white)
+                .cornerRadius(15)
+                .padding(.horizontal, 50)
+            }
+            .transition(.move(edge: .bottom))
+            .animation(.easeInOut, value: showing)
+        }
+    }
+}
 #Preview {
     Licao5()
 }

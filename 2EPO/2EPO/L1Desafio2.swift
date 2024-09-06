@@ -7,6 +7,9 @@ struct Licao2: View {
     @State private var resposta1 = ""
     @State private var resposta2 = ""
     @State private var resposta3 = ""
+    @State private var navigateToNextScreen = false
+    @State private var isCorrect = false
+    @State private var showingResult = false
     
     var body: some View {
         NavigationStack {
@@ -26,7 +29,7 @@ struct Licao2: View {
                             .frame(width: 360, height: 25)
                         
                         RoundedRectangle(cornerRadius: 60)
-                            .fill(Color.progress)
+                            .fill(Color.progressBar)
                             .frame(width: 144, height: 25)
                     }
                     .padding(.horizontal)
@@ -38,7 +41,7 @@ struct Licao2: View {
                     
                     VStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.botões)
+                            .fill(Color.white)
                             .frame(width: 300, height: 200)
                             .overlay(
                                 VStack {
@@ -53,13 +56,13 @@ struct Licao2: View {
                         
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.botões)
+                                .fill(Color.botaoOpcao)
                             VStack {
                                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 10), count: 3), spacing: 10) {
                                     ForEach(words, id: \.self) { word in
                                         Text(word)
                                             .frame(maxWidth: .infinity, minHeight: 50)
-                                            .background(Color.botãol1D2)
+                                            .background(Color.botaoL1D2)
                                             .cornerRadius(10)
                                             .foregroundColor(.white)
                                             .onDrag {
@@ -83,38 +86,63 @@ struct Licao2: View {
                             Image(systemName: "speaker.3.fill")
                                 .frame(width: 100)
                                 .padding()
-                                .background(Color.botãof)
+                                .background(Color.botaoPadrao)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
                         
                         Spacer()
                         
-                        NavigationLink {
-                            Licao3()
-                        } label: {
-                            VStack {
-                                Image(systemName: "hand.thumbsup.fill")
-                                    .frame(width: 100)
-                                    .padding()
-                                    .background(Color.botãof)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
+                        //Botão de validação
+                        Button(action: {
+                            isCorrect = verificarRespostas() // Verifica as respostas ao clicar no botão
+                            showingResult = true
+                        }) {
+                            Image(systemName: "hand.thumbsup.fill")
+                                .frame(width: 100)
+                                .padding()
+                                .background(Color.botaoPadrao)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     }
                     .padding(.horizontal, 55)
                 }
                 .padding(.bottom)
+                
+                // Adicionando o Popup
+                if showingResult {
+                    CustomPopupViewD2(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
+                        .transition(.move(edge: .bottom))
+                        .animation(.easeInOut)
+                }
+                
+                NavigationLink(value: navigateToNextScreen) {
+                    EmptyView()
+                }
+                .navigationDestination(isPresented: $navigateToNextScreen) {
+                    Licao3() // Aqui você pode alterar para a próxima lição ou tela desejada
+                }
             }
         }
+    }
+
+    // Função para verificar se as respostas estão corretas
+    func verificarRespostas() -> Bool {
+        // Verifica cada resposta individualmente
+        let isResposta1Correta = resposta1 == "Mãos"
+        let isResposta2Correta = resposta2 == "Pessoas"
+        let isResposta3Correta = resposta3 == "Mundo"
+        
+        // Retorna verdadeiro apenas se todas as respostas forem corretas
+        return isResposta1Correta && isResposta2Correta && isResposta3Correta
     }
 
     @ViewBuilder
     func fraseCompletaView() -> some View {
         VStack(alignment: .leading) {
             fraseCompletarView(textoBase: "Lute pelas", espaco: $resposta1)
-            fraseCompletarView(textoBase: "O poder da", espaco: $resposta2, textoPosEspaco: "muda tudo")
+            fraseCompletarView(textoBase: "O poder das", espaco: $resposta2, textoPosEspaco: "muda tudo")
             fraseCompletarView(textoBase: "O seu voto mudará o", espaco: $resposta3)
         }
         .padding()
@@ -136,11 +164,9 @@ struct Licao2: View {
                             if let word = object as? String {
                                 DispatchQueue.main.async {
                                     if !espaco.wrappedValue.isEmpty {
-                                        // Devolve a palavra anterior para a lista
                                         words.append(espaco.wrappedValue)
                                     }
                                     espaco.wrappedValue = word
-                                    // Remove a palavra usada da lista
                                     if let index = words.firstIndex(of: word) {
                                         words.remove(at: index)
                                     }
@@ -152,7 +178,6 @@ struct Licao2: View {
                     return false
                 }
                 .onTapGesture {
-                    // Remover palavra do espaço quando clicado e devolvê-la à lista
                     if !espaco.wrappedValue.isEmpty {
                         words.append(espaco.wrappedValue)
                         espaco.wrappedValue = ""
@@ -165,6 +190,52 @@ struct Licao2: View {
                     .foregroundColor(.black)
             }
         }
+    }
+}
+
+struct CustomPopupViewD2: View {
+    var isCorrect: Bool
+    @Binding var showing: Bool
+    @Binding var navigateToNextScreen: Bool
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.white)
+                
+                VStack(alignment: .leading) {
+                    Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                }
+                
+                Spacer()
+            }
+            .padding()
+            .background(Color.blue)
+            .cornerRadius(15)
+            .padding()
+            
+            Button(action: {
+                showing = false
+                navigateToNextScreen = true
+            }) {
+                Text("Avançar")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(15)
+            }
+            .padding(.horizontal, 50)
+        }
+        .padding()
+        .background(Color.black.opacity(0.7))
+        .cornerRadius(20)
+        .shadow(radius: 10)
     }
 }
 
