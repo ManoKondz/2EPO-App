@@ -15,7 +15,8 @@ struct Licao1: View {
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.barcolor)
-                            .frame(height: 25)
+                            .frame(width: 360, height: 25)
+                        
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progressBar)
                             .frame(width: 72, height: 25)

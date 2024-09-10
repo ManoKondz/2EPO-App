@@ -22,6 +22,7 @@ struct Licao5: View {
         }
     }
     
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -120,7 +121,7 @@ struct Licao5: View {
                         EmptyView()
                     }
                     .navigationDestination(isPresented: $navigateToNextScreen) {
-                        Licao5()
+                        TrilhaView()
                     }
                     
                 }
