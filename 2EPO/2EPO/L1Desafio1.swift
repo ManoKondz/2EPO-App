@@ -26,13 +26,13 @@ struct Licao1: View {
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.leading)
                     
-                    Image("boxers")
+                    
+                    Image("desafio1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 200)
                         .padding()
-                        .background(Color.white)
-                        .cornerRadius(30)
+                        .cornerRadius(60)
                         .foregroundColor(.black)
                     
                     Text("Declare apoio ao grupo correto")

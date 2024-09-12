@@ -147,7 +147,8 @@ struct Licao2: View {
         }
         .padding()
     }
-
+    
+//  No momento que esta função foi constrída só duas pessoas sabia
     func fraseCompletarView(textoBase: String, espaco: Binding<String>, textoPosEspaco: String = "") -> some View {
         HStack {
             Text(textoBase)
@@ -161,7 +162,8 @@ struct Licao2: View {
                 .onDrop(of: [.text], isTargeted: nil) { providers in
                     if let provider = providers.first {
                         provider.loadObject(ofClass: String.self) { object, _ in
-                            if let word = object as? String {
+                            if let word = object {
+                                // DispatchQueue.main.async é utilizado para rodar este projeto na thread principal de forma assíncrona.
                                 DispatchQueue.main.async {
                                     if !espaco.wrappedValue.isEmpty {
                                         words.append(espaco.wrappedValue)

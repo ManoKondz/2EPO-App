@@ -11,6 +11,11 @@
 		222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BEC7C2C7E445500769AEC /* L1Desafio4.swift */; };
 		225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C9A042C6FB9580091AE10 /* L1Desafio2.swift */; };
 		228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */; };
+		22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */; };
+		22904F6D2C90E28B006AE170 /* L2Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6C2C90E28B006AE170 /* L2Desafio4.swift */; };
+		22904F6F2C90E5A0006AE170 /* L2Desafio5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6E2C90E5A0006AE170 /* L2Desafio5.swift */; };
+		22AA91212C90BA78006BECE0 /* L2Desafio1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AA91202C90BA78006BECE0 /* L2Desafio1.swift */; };
+		22AA91232C90BEB2006BECE0 /* L2Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AA91222C90BEB2006BECE0 /* L2Desafio2.swift */; };
 		22EA85B62C750088008764D9 /* L1Desafio5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EA85B52C750088008764D9 /* L1Desafio5.swift */; };
 		22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7D2BFD150200576A26 /* _EPOApp.swift */; };
 		22F4CA802BFD150200576A26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F4CA7F2BFD150200576A26 /* ContentView.swift */; };
@@ -25,6 +30,11 @@
 		222BEC7C2C7E445500769AEC /* L1Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio4.swift; sourceTree = "<group>"; };
 		225C9A042C6FB9580091AE10 /* L1Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio2.swift; sourceTree = "<group>"; };
 		228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio1.swift; sourceTree = "<group>"; };
+		22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio3.swift; sourceTree = "<group>"; };
+		22904F6C2C90E28B006AE170 /* L2Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio4.swift; sourceTree = "<group>"; };
+		22904F6E2C90E5A0006AE170 /* L2Desafio5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio5.swift; sourceTree = "<group>"; };
+		22AA91202C90BA78006BECE0 /* L2Desafio1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio1.swift; sourceTree = "<group>"; };
+		22AA91222C90BEB2006BECE0 /* L2Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio2.swift; sourceTree = "<group>"; };
 		22EA85B52C750088008764D9 /* L1Desafio5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio5.swift; sourceTree = "<group>"; };
 		22F4CA7A2BFD150200576A26 /* 2EPO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2EPO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F4CA7D2BFD150200576A26 /* _EPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EPOApp.swift; sourceTree = "<group>"; };
@@ -74,6 +84,11 @@
 				221085B12C78DF3200FD7081 /* L1Desafio3.swift */,
 				222BEC7C2C7E445500769AEC /* L1Desafio4.swift */,
 				22EA85B52C750088008764D9 /* L1Desafio5.swift */,
+				22AA91202C90BA78006BECE0 /* L2Desafio1.swift */,
+				22AA91222C90BEB2006BECE0 /* L2Desafio2.swift */,
+				22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */,
+				22904F6C2C90E28B006AE170 /* L2Desafio4.swift */,
+				22904F6E2C90E5A0006AE170 /* L2Desafio5.swift */,
 				22F4CA812BFD150300576A26 /* Assets.xcassets */,
 				22F4CA832BFD150300576A26 /* Preview Content */,
 			);
@@ -159,12 +174,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F4CA802BFD150200576A26 /* ContentView.swift in Sources */,
+				22904F6D2C90E28B006AE170 /* L2Desafio4.swift in Sources */,
 				222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */,
 				22F4CA8C2BFD16CD00576A26 /* FonologiaView.swift in Sources */,
+				22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */,
+				22AA91212C90BA78006BECE0 /* L2Desafio1.swift in Sources */,
 				228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */,
 				225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */,
+				22AA91232C90BEB2006BECE0 /* L2Desafio2.swift in Sources */,
 				22F4CA902BFD1A1600576A26 /* TrilhaView.swift in Sources */,
 				22EA85B62C750088008764D9 /* L1Desafio5.swift in Sources */,
+				22904F6F2C90E5A0006AE170 /* L2Desafio5.swift in Sources */,
 				221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */,
 				22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */,
 			);
