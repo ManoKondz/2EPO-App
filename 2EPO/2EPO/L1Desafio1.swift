@@ -1,12 +1,16 @@
 import SwiftUI
 
-struct Licao1: View {
+struct L1Desafio1: View {
+    
+    @Binding var state: LessonState
+    
     @State private var showingResult = false
     @State private var isCorrect = false
     @State private var navigateToNextScreen = false
+    @State private var LicaoID = [1]
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ZStack {
                 Color.menu
                     .edgesIgnoringSafeArea(.all)
@@ -26,13 +30,12 @@ struct Licao1: View {
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.leading)
                     
-                    
                     Image("desafio1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 200)
                         .padding()
-                        .cornerRadius(60)
+                        .cornerRadius(200)
                         .foregroundColor(.black)
                     
                     Text("Declare apoio ao grupo correto")
@@ -104,16 +107,30 @@ struct Licao1: View {
                 .overlay(
                     CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                 )
-                
-                NavigationLink(value: navigateToNextScreen)
-                    {
-                    EmptyView()
-                }
-                    .navigationDestination(isPresented:$navigateToNextScreen){
-                        Licao2()
+                .onChange(of: navigateToNextScreen) { newValue in
+                    if newValue {
+                        if isCorrect == false {
+                            state.erradas.append(1)
+                        }
+                        
+                        // VOLTAR PARA QUESTOES ERRADAS
+                        if state.path.count >= 5 {
+                            
+                            if state.erradas.isEmpty {
+                                state.path.removeAll()
+                            } else {
+                                // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                let first = state.erradas.removeFirst()
+                                state.path.append(first)
+                            }
+                        } else {
+                            // VAI PARA PROXIMA LICAO
+                            state.path.append(2)
+                        }
                     }
+                }
             }
-        }
+//        }
     }
 }
 
@@ -173,5 +190,5 @@ struct CustomPopupView: View {
 
 
 #Preview {
-    Licao1()
+    L1Desafio1(state: .constant(.init()))
 }

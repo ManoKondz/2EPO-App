@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct Licao2: View {
+    
+    @Binding var state: LessonState
+    
     @State private var words: [String] = ["Mões", "Universo", "Classes", "Pessoas", "Escolha", "Mãos", "Mundo", "Planeta", "Vidas"]
     @State private var showingPopup = false
     @State private var draggedWord: String? = nil
@@ -10,9 +13,10 @@ struct Licao2: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    @State private var LicaoID = [2]
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ZStack {
                 Color.menu
                     .edgesIgnoringSafeArea(.all)
@@ -38,6 +42,7 @@ struct Licao2: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
+                    
                     
                     VStack {
                         RoundedRectangle(cornerRadius: 20)
@@ -114,17 +119,38 @@ struct Licao2: View {
                 if showingResult {
                     CustomPopupViewD2(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                         .transition(.move(edge: .bottom))
-                        .animation(.easeInOut)
                 }
                 
                 NavigationLink(value: navigateToNextScreen) {
                     EmptyView()
                 }
                 .navigationDestination(isPresented: $navigateToNextScreen) {
-                    Licao3() // Aqui você pode alterar para a próxima lição ou tela desejada
+//                    Licao3() // Aqui você pode alterar para a próxima lição ou tela desejada
                 }
             }
-        }
+            .onChange(of: navigateToNextScreen) { newValue in
+                if newValue {
+                    if isCorrect == false {
+                        state.erradas.append(1)
+                    }
+                    
+                    // VOLTAR PARA QUESTOES ERRADAS
+                    if state.path.count >= 5 {
+                        
+                        if state.erradas.isEmpty {
+                            state.path.removeAll()
+                        } else {
+                            // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                            let first = state.erradas.removeFirst()
+                            state.path.append(first)
+                        }
+                    } else {
+                        // VAI PARA PROXIMA LICAO
+                        state.path.append(2)
+                    }
+                }
+            }
+//        }
     }
 
     // Função para verificar se as respostas estão corretas
@@ -242,5 +268,5 @@ struct CustomPopupViewD2: View {
 }
 
 #Preview {
-    Licao2()
+    Licao2(state: .constant(.init()))
 }

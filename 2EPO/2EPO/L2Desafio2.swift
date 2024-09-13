@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct L2Desafio2: View {
+    @Binding var state: LessonState
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
@@ -29,7 +30,7 @@ struct L2Desafio2: View {
     }
 
     var body: some View {
-        NavigationStack {
+        //NavigationStack {
             ZStack {
                 Color.menu // Cor de fundo aplicada a toda a tela
                     .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
@@ -124,17 +125,32 @@ struct L2Desafio2: View {
                     .overlay(
                         CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
-
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
-                    }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        L2Desafio3()
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
+                        }
                     }
 
                 }
             }
-        }
+       // }
     }
 }
 
@@ -192,5 +208,5 @@ struct CustomPopupView6: View {
 }
 
 #Preview {
-    L2Desafio2()
+    L2Desafio2(state: .constant(.init()))
 }

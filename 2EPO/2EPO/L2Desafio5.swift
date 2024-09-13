@@ -7,6 +7,9 @@
 import SwiftUI
 
 struct L2Desafio5: View {
+    
+    @Binding var state: LessonState
+    
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
@@ -126,11 +129,27 @@ struct L2Desafio5: View {
                         CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
                     
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
-                    }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        L2Desafio5()
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
+                        }
                     }
                     
                 }
@@ -191,5 +210,5 @@ struct CustomPopupView9: View {
     }
 }
 #Preview {
-    L2Desafio5()
+    L2Desafio5(state: .constant (.init()))
 }

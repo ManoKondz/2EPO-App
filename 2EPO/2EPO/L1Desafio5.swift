@@ -1,6 +1,9 @@
 import SwiftUI
 
-struct Licao5: View {
+struct L1Desafio5: View {
+    
+    @Binding var state: LessonState
+    
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
@@ -115,12 +118,26 @@ struct Licao5: View {
                     .overlay(
                         CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
-                    
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
-                    }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        Licao5()
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            // ERROU
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            }
+                            
+                        }
                     }
                     
                 }
@@ -181,5 +198,5 @@ struct CustomPopupView4: View {
     }
 }
 #Preview {
-    Licao5()
+    L1Desafio5(state: .constant(.init()))
 }

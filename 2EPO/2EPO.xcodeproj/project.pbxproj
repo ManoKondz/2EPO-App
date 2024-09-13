@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221085B12C78DF3200FD7081 /* L1Desafio3.swift */; };
 		222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BEC7C2C7E445500769AEC /* L1Desafio4.swift */; };
+		22564B342C94B96D001C534C /* Erros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22564B332C94B96D001C534C /* Erros.swift */; };
 		225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C9A042C6FB9580091AE10 /* L1Desafio2.swift */; };
 		228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */; };
 		22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		221085B12C78DF3200FD7081 /* L1Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio3.swift; sourceTree = "<group>"; };
 		222BEC7C2C7E445500769AEC /* L1Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio4.swift; sourceTree = "<group>"; };
+		22564B332C94B96D001C534C /* Erros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Erros.swift; sourceTree = "<group>"; };
 		225C9A042C6FB9580091AE10 /* L1Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio2.swift; sourceTree = "<group>"; };
 		228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio1.swift; sourceTree = "<group>"; };
 		22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio3.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				22F4CA8F2BFD1A1600576A26 /* TrilhaView.swift */,
 				228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */,
 				225C9A042C6FB9580091AE10 /* L1Desafio2.swift */,
+				22564B332C94B96D001C534C /* Erros.swift */,
 				221085B12C78DF3200FD7081 /* L1Desafio3.swift */,
 				222BEC7C2C7E445500769AEC /* L1Desafio4.swift */,
 				22EA85B52C750088008764D9 /* L1Desafio5.swift */,
@@ -177,6 +180,7 @@
 				22904F6D2C90E28B006AE170 /* L2Desafio4.swift in Sources */,
 				222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */,
 				22F4CA8C2BFD16CD00576A26 /* FonologiaView.swift in Sources */,
+				22564B342C94B96D001C534C /* Erros.swift in Sources */,
 				22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */,
 				22AA91212C90BA78006BECE0 /* L2Desafio1.swift in Sources */,
 				228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */,
