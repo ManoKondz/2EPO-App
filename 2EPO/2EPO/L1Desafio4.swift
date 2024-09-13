@@ -6,6 +6,8 @@ struct Licao4: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
+
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -112,7 +114,7 @@ struct Licao4: View {
                     }
                     .padding()
                     .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
+                        CustomPopupView3(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
                     
                     NavigationLink(value: navigateToNextScreen) {
@@ -130,6 +132,8 @@ struct CustomPopupView3: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
+
     
     var body: some View {
         if showing {
@@ -147,11 +151,15 @@ struct CustomPopupView3: View {
                     }
                     
                     Spacer()
-                    
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    // Botão de tocar som.
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }) {
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)

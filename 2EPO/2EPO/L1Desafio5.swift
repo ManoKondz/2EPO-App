@@ -6,6 +6,8 @@ struct Licao5: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
+
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -101,7 +103,8 @@ struct Licao5: View {
                         
                         // Botão de som
                         Button(action: {
-                            // Ação do botão de som
+                            voiceSynthesizer.speak("Após concluir uma série de cartazes para participar do movimento sobre a língua inglesa, o grupo das mãos precisa escolher um `slogan`.")
+                            voiceSynthesizer.speak("Selecione o `slogan` mais apropriado.")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -132,6 +135,8 @@ struct CustomPopupView4: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
+
     
     var body: some View {
         if showing {
@@ -149,34 +154,38 @@ struct CustomPopupView4: View {
                     }
                     
                     Spacer()
+                    // Botão de tocar som.
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }) {
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(15)
+                    .padding()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        showing = false
+                        navigateToNextScreen = true
+                    }) {
+                        Image(systemName: "forward.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(15)
+                    .padding(.horizontal, 50)
                 }
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(15)
-                .padding()
-                
-                Button(action: {
-                    showing = false
-                    navigateToNextScreen = true
-                }) {
-                    Image(systemName: "forward.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.black)
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(15)
-                .padding(.horizontal, 50)
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut, value: showing)
             }
-            .transition(.move(edge: .bottom))
-            .animation(.easeInOut, value: showing)
         }
     }
 }

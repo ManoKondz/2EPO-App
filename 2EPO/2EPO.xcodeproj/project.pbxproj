@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220D84002C94A6D2008DE439 /* VoiceSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220D83FF2C94A6D2008DE439 /* VoiceSynthesizer.swift */; };
 		221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221085B12C78DF3200FD7081 /* L1Desafio3.swift */; };
 		222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BEC7C2C7E445500769AEC /* L1Desafio4.swift */; };
 		225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C9A042C6FB9580091AE10 /* L1Desafio2.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220D83FF2C94A6D2008DE439 /* VoiceSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSynthesizer.swift; sourceTree = "<group>"; };
 		221085B12C78DF3200FD7081 /* L1Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio3.swift; sourceTree = "<group>"; };
 		222BEC7C2C7E445500769AEC /* L1Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio4.swift; sourceTree = "<group>"; };
 		225C9A042C6FB9580091AE10 /* L1Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio2.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		22F4CA712BFD150200576A26 = {
 			isa = PBXGroup;
 			children = (
+				220D83FF2C94A6D2008DE439 /* VoiceSynthesizer.swift */,
 				22F4CA7C2BFD150200576A26 /* 2EPO */,
 				22F4CA7B2BFD150200576A26 /* Products */,
 			);
@@ -184,6 +187,7 @@
 				22AA91232C90BEB2006BECE0 /* L2Desafio2.swift in Sources */,
 				22F4CA902BFD1A1600576A26 /* TrilhaView.swift in Sources */,
 				22EA85B62C750088008764D9 /* L1Desafio5.swift in Sources */,
+				220D84002C94A6D2008DE439 /* VoiceSynthesizer.swift in Sources */,
 				22904F6F2C90E5A0006AE170 /* L2Desafio5.swift in Sources */,
 				221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */,
 				22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */,
