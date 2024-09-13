@@ -56,8 +56,8 @@ struct L2Desafio5: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 14))
+                        .frame(height: 120)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -82,8 +82,12 @@ struct L2Desafio5: View {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 40)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
                                         .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }
@@ -110,7 +114,7 @@ struct L2Desafio5: View {
                             // Ação do botão de som
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
-                                .frame(width: 120, height: 50)
+                                .frame(width: 100, height: 50)
                                 .padding()
                                 .background(Color.botaoPadrao)
                                 .cornerRadius(10)

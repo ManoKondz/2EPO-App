@@ -56,8 +56,8 @@ struct L2Desafio3: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 16))
+                        .frame(height: 100)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -82,8 +82,12 @@ struct L2Desafio3: View {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 50)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
                                         .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }

@@ -56,8 +56,8 @@ struct L2Desafio1: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 15))
+                        .frame(height: 120)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{

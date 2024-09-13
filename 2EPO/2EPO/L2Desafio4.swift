@@ -57,8 +57,8 @@ struct L2Desafio4: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 14))
+                        .frame(height: 120)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -83,13 +83,14 @@ struct L2Desafio4: View {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 50)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .lineLimit(nil)
-                                        .multilineTextAlignment(.center) // Centraliza o texto
                                         .background(Color.botaoOpcao)
-                                        .cornerRadius(10)
-                                }
+                                        .cornerRadius(10)                                }
                                 
                                 if index < 3 {
                                     Divider()
@@ -112,7 +113,7 @@ struct L2Desafio4: View {
                             // Ação do botão de som
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
-                                .frame(width: 120, height: 50)
+                                .frame(width: 100, height: 40)
                                 .padding()
                                 .background(Color.botaoPadrao)
                                 .cornerRadius(10)

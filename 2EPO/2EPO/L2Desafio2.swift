@@ -12,7 +12,7 @@ struct L2Desafio2: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
-    
+
     func textForIndex(_ index: Int) -> String {
         switch index {
         case 0:
@@ -27,50 +27,49 @@ struct L2Desafio2: View {
             return ""
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.menu // Cor de fundo aplicada a toda a tela
                     .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
-                
+
                 VStack {
                     HStack {
                         Spacer()
                     }
                     .padding()
-                    
+
                     // Barra de progresso
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.barcolor)
-                            .frame(width: 360,height: 25) // Define altura da barra de fundo
-                        
+                            .frame(width: 360, height: 25) // Define altura da barra de fundo
+
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progressBar)
                             .frame(width: 360, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
-                    
+
                     Text("Com base na situação representada na imagem, como você completaria o ditado popular apresentado pelo senhor sábio ?")
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 16))
+                        .frame(height: 100)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
-                    
-                    VStack{
+
+                    VStack {
                         // Retângulo branco
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
                             .frame(width: 300, height: 200)
-                        
-                        
+
                         Text("Complete o ditado !")
                             .foregroundColor(.white)
                             .padding(.top, 10)
-                        
+
                         // Caixa verde das respostas
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
@@ -82,12 +81,16 @@ struct L2Desafio2: View {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 50)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
                                         .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }
-                                
+
                                 if index < 3 {
                                     Divider()
                                         .background(Color("botões"))
@@ -104,7 +107,7 @@ struct L2Desafio2: View {
                                 )
                         )
                         .padding(.bottom, 20)
-                        
+
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
@@ -121,24 +124,25 @@ struct L2Desafio2: View {
                     .overlay(
                         CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
-                    
+
                     NavigationLink(value: navigateToNextScreen) {
                         EmptyView()
                     }
                     .navigationDestination(isPresented: $navigateToNextScreen) {
                         L2Desafio3()
                     }
-                    
+
                 }
             }
         }
     }
 }
+
 struct CustomPopupView6: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
-    
+
     var body: some View {
         if showing {
             VStack {
@@ -147,15 +151,15 @@ struct CustomPopupView6: View {
                         .resizable()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.white)
-                    
+
                     VStack(alignment: .leading) {
                         Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
                             .foregroundColor(.white)
                             .font(.headline)
                     }
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: "speaker.wave.3.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -165,7 +169,7 @@ struct CustomPopupView6: View {
                 .background(Color.blue)
                 .cornerRadius(15)
                 .padding()
-                
+
                 Button(action: {
                     showing = false
                     navigateToNextScreen = true
@@ -186,6 +190,7 @@ struct CustomPopupView6: View {
         }
     }
 }
+
 #Preview {
     L2Desafio2()
 }
