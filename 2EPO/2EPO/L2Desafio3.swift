@@ -14,17 +14,18 @@ struct L2Desafio3: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    @State private var respostacerta = "Água mole em pedra dura tanto bate ate que fura"
     
     func textForIndex(_ index: Int) -> String {
         switch index {
         case 0:
-            return "Mole em pedra dura"
+            return "Água mole em pedra dura tanto bate ate que fura"
         case 1:
-            return "De chuva em abril "
+            return "Água de chuva em abril, cada gota vale um mil "
         case 2:
-            return "Que não corre"
+            return "Água que não corre, forma lodo e morre"
         case 3:
-            return "Que não bebes "
+            return "Água que não bebes, fonte que não passas "
         default:
             return ""
         }
@@ -50,7 +51,7 @@ struct L2Desafio3: View {
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progressBar)
-                            .frame(width: 360, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 216, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
@@ -77,7 +78,12 @@ struct L2Desafio3: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
-                                    isCorrect = true
+                                    // Logica para saber se a resposta escolhida é a certa
+                                    if selectedOption != respostacerta{
+                                        isCorrect = false
+                                    } else{
+                                        isCorrect = true
+                                    }
                                     showingResult = true
                                     selectedOption = textForIndex(index)
                                 }) {

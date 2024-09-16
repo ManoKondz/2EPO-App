@@ -8,6 +8,7 @@ struct L1Desafio4: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    @State private var respostacerta = "Para seguir a norma culta padrão do português."
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -71,7 +72,12 @@ struct L1Desafio4: View {
                     VStack(spacing: 0) {
                         ForEach(0..<4, id: \.self) { index in
                             Button(action: {
-                                isCorrect = true
+                                // Logica para saber se a resposta escolhida é a certa
+                                if selectedOption != respostacerta{
+                                    isCorrect = false
+                                } else{
+                                    isCorrect = true
+                                }
                                 showingResult = true
                             }) {
                                 Text(textForIndex(index))

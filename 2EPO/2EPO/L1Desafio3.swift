@@ -9,6 +9,7 @@ struct L1Desafio3: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    @State private var respostacerta = "Qual seria o plural certo de mão"
     @State private var LicaoID = [3]
     
     func textForIndex(_ index: Int) -> String {
@@ -63,7 +64,12 @@ struct L1Desafio3: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
-                                    isCorrect = true
+                                    // Logica para saber se a resposta escolhida é a certa
+                                    if selectedOption != respostacerta{
+                                        isCorrect = false
+                                    } else{
+                                        isCorrect = true
+                                    }
                                     showingResult = true
                                 }) {
                                     Text(textForIndex(index))
