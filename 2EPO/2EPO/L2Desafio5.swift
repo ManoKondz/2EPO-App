@@ -12,6 +12,7 @@ struct L2Desafio5: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -67,7 +68,7 @@ struct L2Desafio5: View {
                             .frame(width: 300, height: 200)
                         
                         
-                        Text("Complete o provérbio !")
+                        Text("Complete o provérbio!")
                             .foregroundColor(.white)
                             .padding(.top, 10)
                         
@@ -107,7 +108,8 @@ struct L2Desafio5: View {
                         
                         // Botão de som
                         Button(action: {
-                            // Ação do botão de som
+                            voiceSynthesizer.speak("A mamãe começou o provérbio com “quem tudo quer __________”.Como você ajudaria ela a ajudaria ela a completar esse provérbio para ganhar os deliciosos biscoitos ?")
+                            voiceSynthesizer.speak("Complete o provérbio!")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -119,7 +121,7 @@ struct L2Desafio5: View {
                     }
                     .padding()
                     .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
+                        CustomPopupView9(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
                     
                     NavigationLink(value: navigateToNextScreen) {
@@ -138,6 +140,7 @@ struct CustomPopupView9: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
     
     var body: some View {
         if showing {

@@ -12,6 +12,7 @@ struct L2Desafio1: View {
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
     @State private var showingResult = false
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -107,7 +108,8 @@ struct L2Desafio1: View {
                         
                         // Botão de som
                         Button(action: {
-                            // Ação do botão de som
+                            voiceSynthesizer.speak("Uma jovem pede a sua avó exemplos de ditados populares. Ela inicia o ditado “Mais vale um pássaro na mão”, convidando o jovem a completá-lo")
+                            voiceSynthesizer.speak("Complete o ditado!")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -119,7 +121,7 @@ struct L2Desafio1: View {
                     }
                     .padding()
                     .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
+                        CustomPopupView5(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
                     )
                     
                     NavigationLink(value: navigateToNextScreen) {
@@ -138,6 +140,7 @@ struct CustomPopupView5: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer() // Criando uma instância da classe VoiceSynthesizer
     
     var body: some View {
         if showing {
