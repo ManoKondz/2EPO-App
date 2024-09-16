@@ -161,33 +161,38 @@ struct CustomPopupView8: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    // Ícone de som (potencial para leitura em voz alta do feedback).
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }) {
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(15)
+                    .padding()
+                    
+                    Button(action: {
+                        showing = false
+                        navigateToNextScreen = true
+                    }) {
+                        Image(systemName: "forward.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(15)
+                    .padding(.horizontal, 50)
                 }
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(15)
-                .padding()
-                
-                Button(action: {
-                    showing = false
-                    navigateToNextScreen = true
-                }) {
-                    Image(systemName: "forward.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.black)
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(15)
-                .padding(.horizontal, 50)
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut, value: showing)
             }
-            .transition(.move(edge: .bottom))
-            .animation(.easeInOut, value: showing)
         }
     }
 }
