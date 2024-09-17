@@ -12,8 +12,10 @@ struct Licao2: View {
     @State private var resposta3 = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
     @State private var LicaoID = [2]
+    private let voiceSynthesizer = VoiceSynthesizer()
+    
     
     var body: some View {
 //        NavigationStack {
@@ -87,7 +89,8 @@ struct Licao2: View {
                     HStack {
                         Button(action: {
                             // Ação para o botão de som
-                        }) {
+                            voiceSynthesizer.speak("Ajude Ana a completar seu cartaz escolhendo as opções certas, Ela solicita auxílio para a conclusão de três frases cruciais.")
+                            voiceSynthesizer.speak("Escolha as palavras corretas")                        }) {
                             Image(systemName: "speaker.3.fill")
                                 .frame(width: 100)
                                 .padding()
@@ -101,7 +104,7 @@ struct Licao2: View {
                         //Botão de validação
                         Button(action: {
                             isCorrect = verificarRespostas() // Verifica as respostas ao clicar no botão
-                            showingResult = true
+                            showingSheet = true
                         }) {
                             Image(systemName: "hand.thumbsup.fill")
                                 .frame(width: 100)
@@ -116,11 +119,14 @@ struct Licao2: View {
                 .padding(.bottom)
                 
                 // Adicionando o Popup
-                if showingResult {
-                    CustomPopupViewD2(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                        .transition(.move(edge: .bottom))
+                .sheet(isPresented: $showingSheet) {
+                    CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                        showingSheet = false
+                        navigateToNextScreen = true
+                    })
+                    .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                    .background(Color.blue) // Define a cor de fundo da sheet
                 }
-                
                 NavigationLink(value: navigateToNextScreen) {
                     EmptyView()
                 }
@@ -146,7 +152,7 @@ struct Licao2: View {
                         }
                     } else {
                         // VAI PARA PROXIMA LICAO
-                        state.path.append(2)
+                        state.path.append(3)
                     }
                 }
             }
@@ -221,51 +227,8 @@ struct Licao2: View {
     }
 }
 
-struct CustomPopupViewD2: View {
-    var isCorrect: Bool
-    @Binding var showing: Bool
-    @Binding var navigateToNextScreen: Bool
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(.white)
-                
-                VStack(alignment: .leading) {
-                    Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                }
-                
-                Spacer()
-            }
-            .padding()
-            .background(Color.blue)
-            .cornerRadius(15)
-            .padding()
-            
-            Button(action: {
-                showing = false
-                navigateToNextScreen = true
-            }) {
-                Text("Avançar")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.green)
-                    .cornerRadius(15)
-            }
-            .padding(.horizontal, 50)
-        }
-        .padding()
-        .background(Color.black.opacity(0.7))
-        .cornerRadius(20)
-        .shadow(radius: 10)
-    }
-}
+
+
 
 #Preview {
     Licao2(state: .constant(.init()))

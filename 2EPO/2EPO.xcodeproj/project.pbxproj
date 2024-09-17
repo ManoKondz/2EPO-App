@@ -11,6 +11,8 @@
 		222BEC7D2C7E445500769AEC /* L1Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BEC7C2C7E445500769AEC /* L1Desafio4.swift */; };
 		22564B342C94B96D001C534C /* Erros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22564B332C94B96D001C534C /* Erros.swift */; };
 		225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C9A042C6FB9580091AE10 /* L1Desafio2.swift */; };
+		22633A0B2C99FB0C00873EE1 /* VoiceSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22633A0A2C99FB0C00873EE1 /* VoiceSynthesizer.swift */; };
+		22633A0F2C9A127E00873EE1 /* CustomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22633A0E2C9A127E00873EE1 /* CustomSheetView.swift */; };
 		228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */; };
 		22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */; };
 		22904F6D2C90E28B006AE170 /* L2Desafio4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22904F6C2C90E28B006AE170 /* L2Desafio4.swift */; };
@@ -31,6 +33,8 @@
 		222BEC7C2C7E445500769AEC /* L1Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio4.swift; sourceTree = "<group>"; };
 		22564B332C94B96D001C534C /* Erros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Erros.swift; sourceTree = "<group>"; };
 		225C9A042C6FB9580091AE10 /* L1Desafio2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio2.swift; sourceTree = "<group>"; };
+		22633A0A2C99FB0C00873EE1 /* VoiceSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSynthesizer.swift; sourceTree = "<group>"; };
+		22633A0E2C9A127E00873EE1 /* CustomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetView.swift; sourceTree = "<group>"; };
 		228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1Desafio1.swift; sourceTree = "<group>"; };
 		22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio3.swift; sourceTree = "<group>"; };
 		22904F6C2C90E28B006AE170 /* L2Desafio4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2Desafio4.swift; sourceTree = "<group>"; };
@@ -61,6 +65,7 @@
 		22F4CA712BFD150200576A26 = {
 			isa = PBXGroup;
 			children = (
+				22633A0A2C99FB0C00873EE1 /* VoiceSynthesizer.swift */,
 				22F4CA7C2BFD150200576A26 /* 2EPO */,
 				22F4CA7B2BFD150200576A26 /* Products */,
 			);
@@ -83,12 +88,13 @@
 				22F4CA8F2BFD1A1600576A26 /* TrilhaView.swift */,
 				228D0F9C2C543AFA00C24FFF /* L1Desafio1.swift */,
 				225C9A042C6FB9580091AE10 /* L1Desafio2.swift */,
+				22633A0E2C9A127E00873EE1 /* CustomSheetView.swift */,
 				22564B332C94B96D001C534C /* Erros.swift */,
 				221085B12C78DF3200FD7081 /* L1Desafio3.swift */,
 				222BEC7C2C7E445500769AEC /* L1Desafio4.swift */,
+				22AA91222C90BEB2006BECE0 /* L2Desafio2.swift */,
 				22EA85B52C750088008764D9 /* L1Desafio5.swift */,
 				22AA91202C90BA78006BECE0 /* L2Desafio1.swift */,
-				22AA91222C90BEB2006BECE0 /* L2Desafio2.swift */,
 				22904F6A2C90DFA3006AE170 /* L2Desafio3.swift */,
 				22904F6C2C90E28B006AE170 /* L2Desafio4.swift */,
 				22904F6E2C90E5A0006AE170 /* L2Desafio5.swift */,
@@ -182,6 +188,7 @@
 				22F4CA8C2BFD16CD00576A26 /* FonologiaView.swift in Sources */,
 				22564B342C94B96D001C534C /* Erros.swift in Sources */,
 				22904F6B2C90DFA3006AE170 /* L2Desafio3.swift in Sources */,
+				22633A0B2C99FB0C00873EE1 /* VoiceSynthesizer.swift in Sources */,
 				22AA91212C90BA78006BECE0 /* L2Desafio1.swift in Sources */,
 				228D0F9D2C543AFA00C24FFF /* L1Desafio1.swift in Sources */,
 				225C9A052C6FB9580091AE10 /* L1Desafio2.swift in Sources */,
@@ -191,6 +198,7 @@
 				22904F6F2C90E5A0006AE170 /* L2Desafio5.swift in Sources */,
 				221085B22C78DF3200FD7081 /* L1Desafio3.swift in Sources */,
 				22F4CA7E2BFD150200576A26 /* _EPOApp.swift in Sources */,
+				22633A0F2C9A127E00873EE1 /* CustomSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct L1Desafio5: View {
     
@@ -8,8 +9,9 @@ struct L1Desafio5: View {
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
     @State private var respostacerta = "Com mãos o mundo se conecta"
+    private let voiceSynthesizer = VoiceSynthesizer()
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -59,10 +61,13 @@ struct L1Desafio5: View {
                         .layoutPriority(1)
                     
                     VStack{
-                        // Retângulo branco
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .frame(width: 300, height: 200)
+                        Image("Desafio5")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 250, height: 200)
+                            .padding()
+                            .cornerRadius(200)
+                            .foregroundColor(.black)
                         
                         
                         Text("Selecione o `slogan` mais apropriado.")
@@ -79,7 +84,7 @@ struct L1Desafio5: View {
                                     } else{
                                         isCorrect = true
                                     }
-                                    showingResult = true
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
@@ -111,6 +116,8 @@ struct L1Desafio5: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("Após concluir uma série de cartazes para participar do movimento sobre a língua inglesa, o grupo das mãos precisa escolher um `slogan o grupo das mãos precisa escolher um slogan.")
+                            voiceSynthesizer.speak("Selecione o slogan mais apropriado")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -121,9 +128,14 @@ struct L1Desafio5: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
+                    }
                     .onChange(of: navigateToNextScreen) { newValue in
                         if newValue {
                             // ERROU
@@ -151,58 +163,7 @@ struct L1Desafio5: View {
         }
     }
 }
-struct CustomPopupView4: View {
-    var isCorrect: Bool
-    @Binding var showing: Bool
-    @Binding var navigateToNextScreen: Bool
-    
-    var body: some View {
-        if showing {
-            VStack {
-                HStack {
-                    Image(systemName: isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                    
-                    VStack(alignment: .leading) {
-                        Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
-                            .foregroundColor(.white)
-                            .font(.headline)
-                    }
-                    
-                    Spacer()
-                    
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
-                }
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(15)
-                .padding()
-                
-                Button(action: {
-                    showing = false
-                    navigateToNextScreen = true
-                }) {
-                    Image(systemName: "forward.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.black)
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(15)
-                .padding(.horizontal, 50)
-            }
-            .transition(.move(edge: .bottom))
-            .animation(.easeInOut, value: showing)
-        }
-    }
-}
+
 #Preview {
     L1Desafio5(state: .constant(.init()))
 }

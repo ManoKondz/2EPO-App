@@ -15,8 +15,10 @@ struct L2Desafio4: View {
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
     @State private var respostacerta = "Meia palavra basta"
+    private let voiceSynthesizer = VoiceSynthesizer()
+
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -86,7 +88,7 @@ struct L2Desafio4: View {
                                     } else{
                                         isCorrect = true
                                     }
-                                    showingResult = true
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
@@ -120,6 +122,9 @@ struct L2Desafio4: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("O Professor escreveu no quadro branco o início de um provérbio:”Para um bom entendedor ,__”.Como você completaria esse provérbio para ganhar pontos ?")
+                            voiceSynthesizer.speak("Complete o provérbio!")
+
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 100, height: 40)
@@ -130,9 +135,14 @@ struct L2Desafio4: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
+                    }
                     
                     .onChange(of: navigateToNextScreen) { newValue in
                         if newValue {
@@ -162,10 +172,12 @@ struct L2Desafio4: View {
         }
     }
 }
-struct CustomPopupView8: View {
+struct CustomPopupView9: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer()
+
     
     var body: some View {
         if showing {
@@ -184,10 +196,14 @@ struct CustomPopupView8: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }){
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)

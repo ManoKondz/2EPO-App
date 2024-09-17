@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct L1Desafio4: View {
     @Binding var state: LessonState
@@ -7,8 +8,9 @@ struct L1Desafio4: View {
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
     @State private var respostacerta = "Para seguir a norma culta padrão do português."
+    private let voiceSynthesizer = VoiceSynthesizer()
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -59,9 +61,13 @@ struct L1Desafio4: View {
                 
                 VStack{
                     // Retângulo branco
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white)
-                        .frame(width: 300, height: 200)
+                    Image("Desafio4")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250, height: 200)
+                        .padding()
+                        .cornerRadius(200)
+                        .foregroundColor(.black)
                     
                     
                     Text("Escolha a alternativa correta!")
@@ -78,7 +84,7 @@ struct L1Desafio4: View {
                                 } else{
                                     isCorrect = true
                                 }
-                                showingResult = true
+                                showingSheet = true
                             }) {
                                 Text(textForIndex(index))
                                     .font(.system(size: 15))
@@ -109,6 +115,8 @@ struct L1Desafio4: View {
                     // Botão de som
                     Button(action: {
                         // Ação do botão de som
+                        voiceSynthesizer.speak("Auxilie os participantes da manifestação a elucidar as concepções da criança.")
+                        voiceSynthesizer.speak("Escolha a alternativa correta!")
                     }) {
                         Image(systemName: "speaker.wave.2.fill")
                             .frame(width: 120, height: 50)
@@ -119,89 +127,41 @@ struct L1Desafio4: View {
                     }
                 }
                 .padding()
-                .overlay(
-                    CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                )
-                .onChange(of: navigateToNextScreen) { newValue in
-                    if newValue {
-                        if isCorrect == false {
-                            state.erradas.append(1)
-                        }
-                        
-                        // VOLTAR PARA QUESTOES ERRADAS
-                        if state.path.count >= 5 {
-                            
-                            if state.erradas.isEmpty {
-                                state.path.removeAll()
-                            } else {
-                                // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
-                                let first = state.erradas.removeFirst()
-                                state.path.append(first)
+                .sheet(isPresented: $showingSheet) {
+                    CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                        showingSheet = false
+                        navigateToNextScreen = true
+                    })
+                    .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                    .background(Color.blue) // Define a cor de fundo da sheet
+                }
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
                             }
-                        } else {
-                            // VAI PARA PROXIMA LICAO
-                            state.path.append(2)
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
                         }
                     }
                 }
             }
-        }
             //}
         }
     }
-    struct CustomPopupView3: View {
-        var isCorrect: Bool
-        @Binding var showing: Bool
-        @Binding var navigateToNextScreen: Bool
-        
-        var body: some View {
-            if showing {
-                VStack {
-                    HStack {
-                        Image(systemName: isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.white)
-                        
-                        VStack(alignment: .leading) {
-                            Text(isCorrect ? "Excelente! Parabéns!" : "Ops... Na próxima dá certo")
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        }
-                        
-                        Spacer()
-                        
-                        Image(systemName: "speaker.wave.3.fill")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(15)
-                    .padding()
-                    
-                    Button(action: {
-                        showing = false
-                        navigateToNextScreen = true
-                    }) {
-                        Image(systemName: "forward.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.black)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .padding(.horizontal, 50)
-                }
-                .transition(.move(edge: .bottom))
-                .animation(.easeInOut, value: showing)
-            }
-        }
-    }
-    
     #Preview {
         L1Desafio4(state: .constant(.init()))
     }

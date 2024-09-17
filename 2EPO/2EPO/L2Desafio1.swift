@@ -9,14 +9,15 @@ import SwiftUI
 struct L2Desafio1: View {
     
     @Binding var state: LessonState
-    @Binding var path: [Int]
+//    @Binding var path: [Int]
     
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
     @State private var respostacerta = "Do que 2 voando"
+    private let voiceSynthesizer = VoiceSynthesizer()
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -86,7 +87,7 @@ struct L2Desafio1: View {
                                     } else{
                                         isCorrect = true
                                     }
-                                    showingResult = true
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
@@ -118,6 +119,8 @@ struct L2Desafio1: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("Após concluir uma série de cartazes para participar do movimento sobre a língua inglesa, o grupo das mãos precisa escolher um slogan.")
+                            voiceSynthesizer.speak("Selecione o slogan mais apropriado")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -128,9 +131,16 @@ struct L2Desafio1: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
+                    
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
+                    }
+                
                     .onChange(of: navigateToNextScreen) { newValue in
                         if newValue {
                             if isCorrect == false {
@@ -158,10 +168,11 @@ struct L2Desafio1: View {
         //}
     }
 }
-struct CustomPopupView5: View {
+struct CustomPopupView6: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer()
     
     var body: some View {
         if showing {
@@ -180,10 +191,14 @@ struct CustomPopupView5: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }){
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)
@@ -211,5 +226,5 @@ struct CustomPopupView5: View {
     }
 }
 #Preview {
-    L1Desafio5(state: .constant(.init()))
+    L2Desafio1(state: .constant(.init()))
 }
