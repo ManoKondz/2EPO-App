@@ -210,13 +210,8 @@ struct LessonPopupView: View {
             // Lição 1
             case ("Lição 1: A batalha pela verdadeira palavra.", 1):
                 L1Desafio1(state: $state)
-//            case ("Lição 1: A batalha pela verdadeira palavra.", 2):
-//                Licao2(path: $path)
-//                // Lição 1
-//            case ("Lição 2: Através de Ditados Populares.", 1):
-//                L2Desafio1(path: $path)
-//            case ("Lição 2: Através de Ditados Populares.", 2):
-//                L2Desafio2()
+            case ("Lição 2: Através de Ditados Populares.", 2):
+                L2Desafio1(state: $state)
             default:
                 EmptyView()
             }

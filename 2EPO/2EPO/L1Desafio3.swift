@@ -53,7 +53,7 @@ struct L1Desafio3: View {
                     .layoutPriority(1)
                 
                 VStack {
-                    Image("Desafio3")
+                    Image("L1Desafio3")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 200)

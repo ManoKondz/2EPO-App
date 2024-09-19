@@ -9,7 +9,7 @@ import SwiftUI
 struct L2Desafio1: View {
     
     @Binding var state: LessonState
-//    @Binding var path: [Int]
+
     
     @State private var showingPopup = false
     @State private var selectedOption = ""
@@ -18,6 +18,7 @@ struct L2Desafio1: View {
     @State private var showingSheet = false
     @State private var respostacerta = "Do que 2 voando"
     private let voiceSynthesizer = VoiceSynthesizer()
+    @State private var LicaoID = [2]
     
     func textForIndex(_ index: Int) -> String {
         switch index {

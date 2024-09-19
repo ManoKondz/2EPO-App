@@ -32,7 +32,7 @@ struct L1Desafio1: View {
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.leading)
                 
-                Image("desafio1")
+                Image("L1Desafio1")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 250, height: 200)

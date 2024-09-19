@@ -61,7 +61,7 @@ struct L1Desafio4: View {
                 
                 VStack{
                     // Retângulo branco
-                    Image("Desafio4")
+                    Image("L1Desafio4")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 200)
