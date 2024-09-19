@@ -7,22 +7,27 @@
 import SwiftUI
 
 struct L2Desafio3: View {
+    @Binding var state: LessonState
+    
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
+    @State private var respostacerta = "Água mole em pedra dura tanto bate ate que fura"
+    private let voiceSynthesizer = VoiceSynthesizer()
+
     
     func textForIndex(_ index: Int) -> String {
         switch index {
         case 0:
-            return "Mole em pedra dura"
+            return "Água mole em pedra dura tanto bate ate que fura"
         case 1:
-            return "De chuva em abril "
+            return "Água de chuva em abril, cada gota vale um mil "
         case 2:
-            return "Que não corre"
+            return "Água que não corre, forma lodo e morre"
         case 3:
-            return "Que não bebes "
+            return "Água que não bebes, fonte que não passas "
         default:
             return ""
         }
@@ -48,7 +53,7 @@ struct L2Desafio3: View {
                         
                         RoundedRectangle(cornerRadius: 60)
                             .fill(Color.progressBar)
-                            .frame(width: 360, height: 25) // A largura é ajustada com base no progresso
+                            .frame(width: 216, height: 25) // A largura é ajustada com base no progresso
                     }
                     .padding(.horizontal)
                     
@@ -56,8 +61,8 @@ struct L2Desafio3: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 16))
+                        .frame(height: 100)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -75,15 +80,24 @@ struct L2Desafio3: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
-                                    isCorrect = true
-                                    showingResult = true
+                                    // Logica para saber se a resposta escolhida é a certa
+                                    if selectedOption != respostacerta{
+                                        isCorrect = false
+                                    } else{
+                                        isCorrect = true
+                                    }
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 50)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
                                         .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }
@@ -108,6 +122,9 @@ struct L2Desafio3: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("Com base na situação representada na imagem , como você completaria o ditado popular apresentado no quadro negro ?")
+                            voiceSynthesizer.speak("Complete o ditado")
+
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -118,15 +135,35 @@ struct L2Desafio3: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
-                    
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
                     }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        L2Desafio4()
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
+                        }
                     }
                     
                 }
@@ -134,10 +171,12 @@ struct L2Desafio3: View {
         }
     }
 }
-struct CustomPopupView7: View {
+struct CustomPopupView8: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer()
+
     
     var body: some View {
         if showing {
@@ -156,10 +195,14 @@ struct CustomPopupView7: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }){
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)
@@ -187,5 +230,5 @@ struct CustomPopupView7: View {
     }
 }
 #Preview {
-    L2Desafio3()
+    L2Desafio3(state: .constant(.init()))
 }

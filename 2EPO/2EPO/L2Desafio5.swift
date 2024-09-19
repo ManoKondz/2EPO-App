@@ -7,11 +7,18 @@
 import SwiftUI
 
 struct L2Desafio5: View {
+    
+    @Binding var state: LessonState
+    
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
+    @State private var respostacerta = "Tudo perde"
+    private let voiceSynthesizer = VoiceSynthesizer()
+
+    
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -56,8 +63,8 @@ struct L2Desafio5: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 14))
+                        .frame(height: 120)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -75,15 +82,24 @@ struct L2Desafio5: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
-                                    isCorrect = true
-                                    showingResult = true
+                                    // Logica para saber se a resposta escolhida é a certa
+                                    if selectedOption != respostacerta{
+                                        isCorrect = false
+                                    } else{
+                                        isCorrect = true
+                                    }
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
                                         .font(.headline)
                                         .foregroundColor(.black)
+                                        .multilineTextAlignment(.center) // Usado para ajustar o alinhamento do texto
+//                                        .lineLimit(2) // comando para permitir que o texto ocupe várias linhas
+                                        .minimumScaleFactor(0.9) // Reduz o tamanho do texto conforme
+//                                        .padding(.vertical, 5)
+                                        .frame(height: 40)
                                         .frame(maxWidth: .infinity)
-                                        .padding()
                                         .background(Color.botaoOpcao)
                                         .cornerRadius(10)
                                 }
@@ -108,9 +124,12 @@ struct L2Desafio5: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("A mamãe começou o provérbio com “quem tudo quer”.Como você ajudaria ela a ajudaria ela a completar esse provérbio para ganhar os deliciosos biscoitos ?")
+                            voiceSynthesizer.speak("Complete o provérbio!")
+
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
-                                .frame(width: 120, height: 50)
+                                .frame(width: 100, height: 50)
                                 .padding()
                                 .background(Color.botaoPadrao)
                                 .cornerRadius(10)
@@ -118,15 +137,35 @@ struct L2Desafio5: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
-                    
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
                     }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        L2Desafio5()
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
+                        }
                     }
                     
                 }
@@ -134,10 +173,12 @@ struct L2Desafio5: View {
         }
     }
 }
-struct CustomPopupView9: View {
+struct CustomPopupView10: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer()
+
     
     var body: some View {
         if showing {
@@ -156,10 +197,14 @@ struct CustomPopupView9: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }){
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)
@@ -187,5 +232,5 @@ struct CustomPopupView9: View {
     }
 }
 #Preview {
-    L2Desafio5()
+    L2Desafio5(state: .constant (.init()))
 }

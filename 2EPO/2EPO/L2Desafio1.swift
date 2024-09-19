@@ -7,11 +7,18 @@
 import SwiftUI
 
 struct L2Desafio1: View {
+    
+    @Binding var state: LessonState
+
+    
     @State private var showingPopup = false
     @State private var selectedOption = ""
     @State private var navigateToNextScreen = false
     @State private var isCorrect = false
-    @State private var showingResult = false
+    @State private var showingSheet = false
+    @State private var respostacerta = "Do que 2 voando"
+    private let voiceSynthesizer = VoiceSynthesizer()
+    @State private var LicaoID = [2]
     
     func textForIndex(_ index: Int) -> String {
         switch index {
@@ -29,7 +36,7 @@ struct L2Desafio1: View {
     }
     
     var body: some View {
-        NavigationStack {
+       // NavigationStack {
             ZStack {
                 Color.menu // Cor de fundo aplicada a toda a tela
                     .edgesIgnoringSafeArea(.all) // Garante que a cor preencha toda a tela
@@ -56,8 +63,8 @@ struct L2Desafio1: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .frame(height: 90)
-                        .font(.system(size: 15))
+                        .frame(height: 120)
+                        .font(.system(size: 18))
                         .layoutPriority(1)
                     
                     VStack{
@@ -75,8 +82,13 @@ struct L2Desafio1: View {
                         VStack(spacing: 0) {
                             ForEach(0..<4, id: \.self) { index in
                                 Button(action: {
-                                    isCorrect = true
-                                    showingResult = true
+                                    // Logica para saber se a resposta escolhida é a certa
+                                    if selectedOption != respostacerta{
+                                        isCorrect = false
+                                    } else{
+                                        isCorrect = true
+                                    }
+                                    showingSheet = true
                                     selectedOption = textForIndex(index)
                                 }) {
                                     Text(textForIndex(index))
@@ -108,6 +120,8 @@ struct L2Desafio1: View {
                         // Botão de som
                         Button(action: {
                             // Ação do botão de som
+                            voiceSynthesizer.speak("Após concluir uma série de cartazes para participar do movimento sobre a língua inglesa, o grupo das mãos precisa escolher um slogan.")
+                            voiceSynthesizer.speak("Selecione o slogan mais apropriado")
                         }) {
                             Image(systemName: "speaker.wave.2.fill")
                                 .frame(width: 120, height: 50)
@@ -118,26 +132,48 @@ struct L2Desafio1: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        CustomPopupView(isCorrect: isCorrect, showing: $showingResult, navigateToNextScreen: $navigateToNextScreen)
-                    )
                     
-                    NavigationLink(value: navigateToNextScreen) {
-                        EmptyView()
+                    .sheet(isPresented: $showingSheet) {
+                        CustomSheetView(isCorrect: isCorrect, onDismiss: {
+                            showingSheet = false
+                            navigateToNextScreen = true
+                        })
+                        .presentationDetents([.fraction(0.25)]) // Ajusta a altura da sheet para 25% da tela
+                        .background(Color.blue) // Define a cor de fundo da sheet
                     }
-                    .navigationDestination(isPresented: $navigateToNextScreen) {
-                        L2Desafio2()
+                
+                    .onChange(of: navigateToNextScreen) { newValue in
+                        if newValue {
+                            if isCorrect == false {
+                                state.erradas.append(1)
+                            }
+                            
+                            // VOLTAR PARA QUESTOES ERRADAS
+                            if state.path.count >= 5 {
+                                
+                                if state.erradas.isEmpty {
+                                    state.path.removeAll()
+                                } else {
+                                    // PEGA A PRIMEIRA LIÇÃO ERRADA E REMOVE DAS ERRADAS
+                                    let first = state.erradas.removeFirst()
+                                    state.path.append(first)
+                                }
+                            } else {
+                                // VAI PARA PROXIMA LICAO
+                                state.path.append(2)
+                            }
+                        }
                     }
-                    
                 }
             }
-        }
+        //}
     }
 }
-struct CustomPopupView5: View {
+struct CustomPopupView6: View {
     var isCorrect: Bool
     @Binding var showing: Bool
     @Binding var navigateToNextScreen: Bool
+    private let voiceSynthesizer = VoiceSynthesizer()
     
     var body: some View {
         if showing {
@@ -156,10 +192,14 @@ struct CustomPopupView5: View {
                     
                     Spacer()
                     
-                    Image(systemName: "speaker.wave.3.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.white)
+                    Button(action: {
+                        voiceSynthesizer.speak(isCorrect ? "Excelente! Parabéns!" : "Ôpis... Na próxima dá certo")
+                    }){
+                        Image(systemName: "speaker.wave.3.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
                 }
                 .padding()
                 .background(Color.blue)
@@ -187,5 +227,5 @@ struct CustomPopupView5: View {
     }
 }
 #Preview {
-    L2Desafio1()
+    L2Desafio1(state: .constant(.init()))
 }

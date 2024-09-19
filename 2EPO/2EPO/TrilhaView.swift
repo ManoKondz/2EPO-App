@@ -143,56 +143,82 @@ struct CircleIconView: View {
     }
 }
 
+
+struct LessonState {
+    var path = [Int]()
+    var erradas = [Int]()
+}
+
 struct LessonPopupView: View {
+    
+    @State var state = LessonState()
+    
     var lessonName: String
     @Binding var isShowingPopup: Bool
     
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    self.isShowingPopup = false
-                }) {
-                    Image(systemName: "x.circle.fill")
+        NavigationStack(path: $state.path) {
+            VStack {
+                HStack {
+                    Button(action: {
+                        self.isShowingPopup = false
+                    }) {
+                        Image(systemName: "x.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.green)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
+                    Spacer()
+                }
+                
+                Text(lessonName)
+                    .font(.title)
+                    .padding(.top, 20) // Ajustei aqui para alinhar o texto um pouco mais acima
+                    .padding(.horizontal, 20)
+                
+                
+                
+                
+                Button {
+                    state.path.append(1)
+                } label: {
+                    
+                    Image(systemName: "play.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.green)
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.white)
                 }
-                .padding(.leading, 20)
-                .padding(.top, 20)
+                .padding()
+                .background(Color.green)
+                .clipShape(Circle())
+                
                 Spacer()
             }
-            
-            Text(lessonName)
-                .font(.title)
-                .padding(.top, 20) // Ajustei aqui para alinhar o texto um pouco mais acima
-                .padding(.horizontal, 20)
-            
-            
-        
+            .frame(width: 300, height: 300)
+            .background(Color.white)
+            .cornerRadius(20)
+            .shadow(radius: 20)
+            .padding(.top, 20) // Outro ajuste para mover todo o conteúdo da VStack um pouco mais para cima
 
-            NavigationLink{
-                Licao1()
-            } label: {
-            
-                Image(systemName: "play.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.white)
-            }
-            .padding()
-            .background(Color.green)
-            .clipShape(Circle())
-            
-            Spacer()
         }
-        .frame(width: 300, height: 300)
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(radius: 20)
-        .padding(.top, 20) // Outro ajuste para mover todo o conteúdo da VStack um pouco mais para cima
+        .navigationDestination(for: Int.self) { i in
+            switch (lessonName, i) {
+            // Lição 1
+            case ("Lição 1: A batalha pela verdadeira palavra.", 1):
+                L1Desafio1(state: $state)
+            case ("Lição 2: Através de Ditados Populares.", 2):
+                L2Desafio1(state: $state)
+            default:
+                EmptyView()
+            }
+        }
+        
+        
+        // [1, ]
     }
 }
 
